@@ -83,7 +83,7 @@ function updateValues() {
     createPipe();
 
     // probably better if pump stat was an array so it can be more dynamic but the webstie itself can only contain 3 pipes
-    for(var i = 0; i < PumpCount; i++)
+    for(var i = 0; i < dataJson.PumpCount; i++)
     {
         setColor(pipeElements[0], dataJson.Pump1Stat);
         switch(i)
