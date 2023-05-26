@@ -8,13 +8,13 @@ var waterLevelValue = document.getElementById('water-level-number');
 var flowValues = document.getElementsByClassName('flow-number');
 
 // temporary sample JSON 
-var sampleJson = {
+var dataJson = {
     "PumpCount": 3,
     "Pump1Stat": 3,
     "Pump2Stat": 2,
     "Pump3Stat": 1,
     "Level": 4.2,
-    "Flow": 21
+    "Flow": 31
 };
 
 // Extract the pump count and level from the JSON
@@ -22,11 +22,11 @@ var pumpCount = sampleJson.PumpCount;
 var level = sampleJson.Level;
 
 // Set the initial water level height based on the level
-setWaterLevelHeight(level);
-WaterLevelAnimation(level);
+setWaterLevelHeight();
+WaterLevelAnimation();
 
 createPipe();
-
+updateValues();
 
 //create each pipe dynamically
 function createPipe()
@@ -53,7 +53,6 @@ function createPipe()
     }
 }
 
-
 // set pipe color based on status
 function setColor(pumpElement, status) {
     switch (status) {
@@ -73,7 +72,7 @@ function setColor(pumpElement, status) {
 function setWaterLevelHeight(level) {
     var maxHeight = 10; // Maximum water level height in FT
     var containerHeight = container.offsetHeight;
-    var waterLevelHeight = (level / maxHeight) * containerHeight;
+    var waterLevelHeight = (dataJson.Level / maxHeight) * containerHeight;
     waterLevel.style.height = waterLevelHeight + "px";
 }
 
@@ -85,7 +84,7 @@ function WaterLevelAnimation() {
     var interval = 1000; 
 
     setInterval(function() {
-        var randomLevel = level + (Math.random() * levelRange * 2 - levelRange);
+        var randomLevel = dataJson.Level + (Math.random() * levelRange * 2 - levelRange);
         randomLevel = Math.max(minHeight, Math.min(maxHeight, randomLevel)); // Clamp the value within the height range
         setWaterLevelHeight(randomLevel);
     }, interval);
@@ -94,18 +93,16 @@ function WaterLevelAnimation() {
 //update all number values as visual representation
 function updateValues()
 {
-    const roundedValue = dataJson.Level.toFixed(1);
-    waterLevelValue.textContent = roundedValue;
 
     for(let i = 0; i < flowValues.length; i++)
     {
-        flowValues[i].textContent = sampleJson.Flow;
+        flowValues[i].textContent = dataJson.Flow;
     }
 
     // Set the color of each pipe based on the status
-    setColor(pipeElements[0], sampleJson.Pump1Stat);
-    setColor(pipeElements[1], sampleJson.Pump2Stat);
-    setColor(pipeElements[2], sampleJson.Pump3Stat);
+    setColor(pipeElements[0], dataJson.Pump1Stat);
+    setColor(pipeElements[1], dataJson.Pump2Stat);
+    setColor(pipeElements[2], dataJson.Pump3Stat);
 }
 
 // Function to fetch data and update UI
