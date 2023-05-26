@@ -80,8 +80,6 @@ function setWaterLevelHeight(level) {
     var containerHeight = container.offsetHeight;
     var waterLevelHeight = (level / maxHeight) * containerHeight;
     waterLevel.style.height = waterLevelHeight + "px";
-
-    updateValues(level);
 }
 
 // water animation to simulate fake waves
@@ -99,9 +97,9 @@ function WaterLevelAnimation() {
 }
 
 //update all number values as visual representation
-function updateValues(level)
+function updateValues()
 {
-    const roundedValue = level.toFixed(1);
+    const roundedValue = dataJson.Levelevel.toFixed(1);
     waterLevelValue.textContent = roundedValue;
 
     for(let i = 0; i < flowValues.length; i++)
