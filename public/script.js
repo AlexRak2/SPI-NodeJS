@@ -22,7 +22,7 @@ var dataJson = {
     "Pump1Stat": 3,
     "Pump2Stat": 2,
     "Pump3Stat": 1,
-    "Level": 10,
+    "Level": 5,
     "Flow": 31
 };
 
@@ -130,26 +130,25 @@ function setWaterLevelHeight(level) {
     const containerHeight = container.offsetHeight;
     const waterLevelHeight = (level / maxWater) * containerHeight;
   
-    const clampedHeight =  Math.max(0, Math.min(containerHeight, waterLevelHeight) - (level < 10 ? 0 : 40));
+    const clampedHeight =  Math.max(0, Math.min(containerHeight, waterLevelHeight) - (level < 9 ? 0 : 30));
     waterLevel.style.height = clampedHeight + "px";
 
-    const levelValue = clamp(level, minWater, maxWater);
-    console.log(level + ' level')
-    console.log(levelValue + ' level value')
+    const levelValue = clamp(dataJson.Level, minWater, maxWater);
     const roundedValue = levelValue.toFixed(1);
     waterLevelValue.textContent = roundedValue;
   }
 
 // Water animation to simulate fake waves
 function waterLevelAnimation() {
-    // const levelRange = 0.5; // Range around the level value
-    // const interval = 1000; // Animation interval in milliseconds
+    const levelRange = 0.15; // Range around the level value
+    const interval = 500; // Animation interval in milliseconds
 
-    // setInterval(() => {
-    //     const randomLevel = dataJson.Level + (Math.random() * levelRange * 2 - levelRange);
-    //     const clampedLevel = Math.max(minHeight, Math.min(maxHeight  - 0.65, randomLevel)); // Clamp the value within the height range
-    //     setWaterLevelHeight(clampedLevel);
-    // }, interval);
+    setInterval(() => {
+        const randomLevel = dataJson.Level + (Math.random() * levelRange * 2 - levelRange);
+        const clampedLevel = Math.max(minWater, Math.min(maxWater  - 0.65, randomLevel)); // Clamp the value within the height range
+        console.log(clampedLevel);
+        setWaterLevelHeight(clampedLevel);
+    }, interval);
 }
 
 
