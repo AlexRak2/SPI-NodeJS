@@ -89,13 +89,13 @@ function updateValues() {
     {
         switch(i)
         {
-            case 1:
+            case 0:
                 setColor(pipeElements[i], dataJson.Pump1Stat);
                 break;
-            case 2:
+            case 1:
                 setColor(pipeElements[i], dataJson.Pump2Stat);
                 break;
-            case 3:
+            case 2:
                 setColor(pipeElements[i], dataJson.Pump3Stat);
                 break;
         }
@@ -112,13 +112,13 @@ function updateValues() {
 // Set pipe color based on status
 function setColor(pumpElement, status) {
     switch (status) {
-        case 1:
+        case 0:
             pumpElement.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--running-color');
             break;
-        case 2:
+        case 1:
             pumpElement.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--alarm-red-color');
             break;
-        case 3:
+        case 2:
             pumpElement.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--alarm-yellow-color');
             break;
     }
