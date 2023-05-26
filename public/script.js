@@ -141,16 +141,14 @@ function setWaterLevelHeight(level) {
 
 // Water animation to simulate fake waves
 function waterLevelAnimation() {
-    const minHeight = 0.5; // Minimum water level height in FT
-    const maxHeight = 10; // Maximum water level height in FT
-    const levelRange = 0.5; // Range around the level value
-    const interval = 1000; // Animation interval in milliseconds
+    // const levelRange = 0.5; // Range around the level value
+    // const interval = 1000; // Animation interval in milliseconds
 
-    setInterval(() => {
-        const randomLevel = dataJson.Level + (Math.random() * levelRange * 2 - levelRange);
-        const clampedLevel = Math.max(minHeight, Math.min(maxHeight  - 0.65, randomLevel)); // Clamp the value within the height range
-        setWaterLevelHeight(clampedLevel);
-    }, interval);
+    // setInterval(() => {
+    //     const randomLevel = dataJson.Level + (Math.random() * levelRange * 2 - levelRange);
+    //     const clampedLevel = Math.max(minHeight, Math.min(maxHeight  - 0.65, randomLevel)); // Clamp the value within the height range
+    //     setWaterLevelHeight(clampedLevel);
+    // }, interval);
 }
 
 
