@@ -1,0 +1,224 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url(Images/bg.png);
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+:root {
+    --bg-color: #222327;
+    --txt-color: #fff;
+    --border-color: #3a3a3a;
+    --water-color: #67bbe1;
+    --running-color: #00b12f;
+    --alarm-red-color: #e21010;
+    --alarm-yellow-color: #eaea00;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+}
+
+#simulation-container {
+    position: relative;
+    height: 550px;
+    width: 300px;
+    z-index: -1;
+    /* border: 5px solid var(--border-color);
+    background: linear-gradient(to bottom, rgb(152, 152, 152), rgb(79, 78, 78)); */
+}
+
+.border-img{
+
+    width: 100%;
+    height: auto;
+    transform: scale(2.25);
+    transform-origin: top left;
+
+    position: absolute;
+    left: -112px;
+    top: -35px;
+}
+
+.pump-container {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    position: absolute;
+    bottom: 55px;
+    left: 16px;
+    margin-right: 20px;
+    gap: 70px;
+}
+
+.pipe-container {
+    position: absolute;
+    left: -6px;
+    height: 100%;
+    bottom: 40px;
+    
+    display: flex;
+    align-content: stretch;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+
+.bottom-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px; /* Adjust the height as needed */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    background: linear-gradient(to bottom, rgb(152, 152, 152), rgb(79, 78, 78));
+    box-shadow: inset 0px 5px 5px -5px rgba(0, 0, 0, 0.5);
+
+}
+
+.pump {
+    width: 30px;
+    height: 50px;
+    z-index: 3;
+
+    box-shadow: 0px -1px 5px 0.1px rgba(0, 0, 0, 0.5);
+}
+
+.pipe {
+    background-image: url(/Images/pumpandpipe.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 300px;
+    height: 450px;
+    position: relative;
+    z-index: 3;
+    flex-grow: 1;
+    left: 105px;
+    top: 25px;
+    margin-left: -200px;
+
+}
+
+.pipe-title {
+    margin-top: 5px;
+    color: var(--txt-color);
+    z-index: 3;
+}
+
+#water-level {
+    width: 100%;
+    height: 100%;
+    background-color: var(--water-color);
+    position: absolute;
+    bottom: 40px;
+    z-index: 2;
+    transition: height 1s ease-in-out;
+
+
+}
+
+
+/* WATER LEVEL */
+#current-water-level
+{
+    position: absolute;
+    top: 30px;
+    right: 5px;
+    width: 70px; /* Adjust the width as needed */
+    height: 30px; /* Adjust the height as needed */
+    background-color: rgb(82, 81, 81);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: inset 0px 5px 5px -5px rgba(0, 0, 0, 0.5);
+    z-index: 3;
+}
+
+#water-level-number {
+    font-size: 20px; /* Adjust the font size as needed */
+    margin-left: 5px;
+    color:var(--txt-color);
+}
+
+.water-unit {
+    font-size: 10px; /* Adjust the font size as needed */
+    right: 50px;
+    margin-right: 5px;
+    margin-top: 10px;
+    color:var(--txt-color);
+}
+
+
+
+/* FLOW LEVEL */
+#right-flow-level
+{
+    position: relative;
+    top: -130px;
+    left: 460px;
+    width: 70px; /* Adjust the width as needed */
+    height: 30px; /* Adjust the height as needed */
+    background-color: rgb(82, 81, 81);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    box-shadow: 0px 5px 5px -5px rgba(0, 0, 0, 0.5);
+    z-index: 3;
+}
+
+#left-flow-level
+{
+    position: relative;
+    top: -165px;
+    left: -20px;
+    width: 70px; /* Adjust the width as needed */
+    height: 30px; /* Adjust the height as needed */
+    background-color: rgb(82, 81, 81);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    box-shadow: 0px 5px 5px -5px rgba(0, 0, 0, 0.5);
+    z-index: 3;
+}
+
+
+.flow-number {
+    font-size: 20px; /* Adjust the font size as needed */
+    margin-left: 5px;
+    color:var(--txt-color);
+}
+
+.flow-unit {
+    font-size: 10px; /* Adjust the font size as needed */
+    right: 50px;
+    margin-right: 5px;
+    margin-top: 10px;
+    color:var(--txt-color);
+}
+
+
+/* temp square for now level 1 */
+.square {
+    width: 50px;
+    height: 50px;
+    background-color: gray;
+    margin: 10px;
+    position: relative;
+    z-index: 2;
+}
