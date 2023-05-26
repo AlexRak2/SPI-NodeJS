@@ -3,7 +3,6 @@ const baseURL = 'https://spi-nodejs.onrender.com/';
 
 const container = document.getElementById("simulation-container");
 const waterLevel = document.getElementById("water-level");
-const pipeElements = document.getElementsByClassName("pump");
 const waterLevelValue = document.getElementById('water-level-number');
 const flowValues = document.getElementsByClassName('flow-number');
 const pumpContainer = document.querySelector(".pump-container");
@@ -83,6 +82,8 @@ function updateValues() {
     }
 
     createPipe();
+    
+    const pipeElements = document.getElementsByClassName("pump");
 
     // probably better if pump stat was an array so it can be more dynamic but the webstie itself can only contain 3 pipes
     for(var i = 0; i < dataJson.PumpCount; i++)
@@ -112,13 +113,13 @@ function updateValues() {
 // Set pipe color based on status
 function setColor(pumpElement, status) {
     switch (status) {
-        case 0:
+        case 1:
             pumpElement.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--running-color');
             break;
-        case 1:
+        case 2:
             pumpElement.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--alarm-red-color');
             break;
-        case 2:
+        case 3:
             pumpElement.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--alarm-yellow-color');
             break;
     }
