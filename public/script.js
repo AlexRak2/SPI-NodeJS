@@ -18,8 +18,8 @@ var dataJson = {
 };
 
 // Extract the pump count and level from the JSON
-var pumpCount = sampleJson.PumpCount;
-var level = sampleJson.Level;
+var pumpCount = dataJson.PumpCount;
+var level = dataJson.Level;
 
 // Set the initial water level height based on the level
 setWaterLevelHeight();
