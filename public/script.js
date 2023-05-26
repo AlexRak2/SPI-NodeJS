@@ -6,6 +6,12 @@ const waterLevel = document.getElementById("water-level");
 const pipeElements = document.getElementsByClassName("pump");
 const waterLevelValue = document.getElementById('water-level-number');
 const flowValues = document.getElementsByClassName('flow-number');
+const pumpContainer = document.querySelector(".pump-container");
+const pipeContainer = document.querySelector(".pipe-container");
+const pipeTitleContainer = document.querySelector(".bottom-container");
+
+var previousWaterLevel = 0;
+var previousPumpCount = 0;
 
 var dataJson = {
     "PumpCount": 3,
@@ -18,16 +24,18 @@ var dataJson = {
 
 
 
-createPipe();
 updateValues();
 waterLevelAnimation();
 
 
 // Create each pipe dynamically
 function createPipe() {
-    const pumpContainer = document.querySelector(".pump-container");
-    const pipeContainer = document.querySelector(".pipe-container");
-    const pipeTitleContainer = document.querySelector(".bottom-container");
+
+    //do not delete or create if value was not changed
+    if(previousPumpCount == dataJson.PumpCount) return;
+
+    previousPumpCount = dataJson.PumpCount;
+    deletePipes();
 
     for (let i = 0; i < dataJson.PumpCount; i++) {
         const pumpElement = document.createElement("div");
@@ -45,8 +53,24 @@ function createPipe() {
     }
 }
 
+function deletePipes()
+{
+    while (pumpContainer.firstChild) {
+        pumpContainer.removeChild(pumpContainer.firstChild);
+      }
+    
+      // Remove existing pipe elements
+      while (pipeContainer.firstChild) {
+        pipeContainer.removeChild(pipeContainer.firstChild);
+      }
+    
+      // Remove existing pump title elements
+      while (pipeTitleContainer.firstChild) {
+        pipeTitleContainer.removeChild(pipeTitleContainer.firstChild);
+      }
+}
+
 // Update all number values as visual representation
-var previousWaterLevel = 0;
 function updateValues() {
 
     const roundedValue = dataJson.Level.toFixed(1);
@@ -55,6 +79,8 @@ function updateValues() {
     for (let i = 0; i < flowValues.length; i++) {
         flowValues[i].textContent = dataJson.Flow;
     }
+
+    createPipe();
 
     setColor(pipeElements[0], dataJson.Pump1Stat);
     setColor(pipeElements[1], dataJson.Pump2Stat);
