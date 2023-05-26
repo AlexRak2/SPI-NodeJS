@@ -87,17 +87,16 @@ function updateValues() {
     // probably better if pump stat was an array so it can be more dynamic but the webstie itself can only contain 3 pipes
     for(var i = 0; i < dataJson.PumpCount; i++)
     {
-        setColor(pipeElements[0], dataJson.Pump1Stat);
         switch(i)
         {
             case 1:
-                setColor(pipeElements[1], dataJson.Pump1Stat);
+                setColor(pipeElements[i], dataJson.Pump1Stat);
                 break;
             case 2:
-                setColor(pipeElements[2], dataJson.Pump2Stat);
+                setColor(pipeElements[i], dataJson.Pump2Stat);
                 break;
             case 3:
-                setColor(pipeElements[3], dataJson.Pump3Stat);
+                setColor(pipeElements[i], dataJson.Pump3Stat);
                 break;
         }
     }
