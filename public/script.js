@@ -112,7 +112,11 @@ function setColor(pumpElement, status) {
 function setWaterLevelHeight(level) {
     const maxHeight = 10; // Maximum water level height in FT
     const containerHeight = container.offsetHeight;
-    const waterLevelHeight = (level / maxHeight) * containerHeight;
+    let waterLevelHeight = (level / maxHeight) * containerHeight;
+  
+    // Clamp waterLevelHeight between 0 and containerHeight
+    waterLevelHeight = Math.max(0, Math.min(containerHeight, waterLevelHeight));
+  
     waterLevel.style.height = waterLevelHeight + "px";
 }
 
