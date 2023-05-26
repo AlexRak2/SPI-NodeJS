@@ -125,17 +125,18 @@ function setColor(pumpElement, status) {
     }
 }
 
-setWaterLevelHeight(dataJson.Level);
 function setWaterLevelHeight(level) {
 
     const containerHeight = container.offsetHeight;
     const waterLevelHeight = (level / maxWater) * containerHeight;
   
-    const clampedHeight =  Math.max(0, Math.min(containerHeight, waterLevelHeight) - 40);
+    const clampedHeight =  Math.max(0, Math.min(containerHeight, waterLevelHeight) - level < 10 ? 0 : 40);
     waterLevel.style.height = clampedHeight + "px";
 
-    const waterLevelValue = clamp(level, minWater, maxWater);
-    const roundedValue = waterLevelValue.toFixed(1);
+    const levelValue = clamp(level, minWater, maxWater);
+    console.log(level + ' level')
+    console.log(levelValue + ' level value')
+    const roundedValue = levelValue.toFixed(1);
     waterLevelValue.textContent = roundedValue;
   }
 
