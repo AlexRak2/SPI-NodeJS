@@ -134,7 +134,7 @@ function setWaterLevelHeight(level) {
     const clampedHeight =  Math.max(0, Math.min(containerHeight, waterLevelHeight));
     waterLevel.style.height = clampedHeight + "px";
 
-    const waterLevelValue = clamp(level, minWater, maxWater)
+    const waterLevelValue = clamp(level, minWater, maxWater);
     const roundedValue = waterLevelValue.toFixed(1);
     waterLevelValue.textContent = roundedValue;
   }
