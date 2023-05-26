@@ -1,4 +1,6 @@
 // all elements needed
+const baseURL = 'https://spi-nodejs.onrender.com/';
+
 var container = document.getElementById("simulation-container");
 var waterLevel = document.getElementById("water-level");
 var pipeElements = document.getElementsByClassName("pump");
@@ -107,4 +109,26 @@ function updateValues(level)
         flowValues[i].textContent = sampleJson.Flow;
     }
 }
+
+// Function to fetch data and update UI
+async function getInfo() {
+    try {
+      const res = await fetch(baseURL + 'getData', {
+        method: 'GET'
+      });
+  
+      if (res.ok) {
+        const resJSON = await res.json(); // Extract JSON content from the response
+        dataJson = resJSON;
+        updateValues();
+      } else {
+        console.log('Failed to fetch data');
+      }
+    } catch (error) {
+      console.log('An error occurred while fetching data:', error);
+    }
+  }
+  
+  // Refresh data every second
+  setInterval(getInfo, 1000);
 
