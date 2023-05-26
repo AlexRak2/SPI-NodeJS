@@ -13,6 +13,9 @@ const pipeTitleContainer = document.querySelector(".bottom-container");
 var previousWaterLevel = 0;
 var previousPumpCount = 0;
 
+const minWater = 0;
+const maxWater = 10;
+
 var dataJson = {
     "PumpCount": 3,
     "Pump1Stat": 3,
@@ -121,19 +124,21 @@ function setColor(pumpElement, status) {
     }
 }
 
+const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+
 function setWaterLevelHeight(level) {
+
     const containerHeight = container.offsetHeight;
-    const maxHeight = 10; // Maximum water level height in FT
-    const waterLevelHeight = (level / maxHeight) * containerHeight;
+    const waterLevelHeight = (level / maxWater) * containerHeight;
   
-    // Clamp waterLevelHeight between 0 and containerHeight
-    const clampedHeight = Math.max(0, Math.min(containerHeight, waterLevelHeight));
+    const clampedHeight =  Math.max(0, Math.min(containerHeight, waterLevelHeight));
     waterLevel.style.height = clampedHeight + "px";
-  
-    const roundedValue = level.toFixed(1);
+
+    const waterLevelValue = clamp(level, minWater, maxWater)
+    const roundedValue = waterLevelValue.toFixed(1);
     waterLevelValue.textContent = roundedValue;
   }
-  
+
 // Water animation to simulate fake waves
 function waterLevelAnimation() {
     const minHeight = 0.5; // Minimum water level height in FT
