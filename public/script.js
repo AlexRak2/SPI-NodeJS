@@ -15,6 +15,7 @@ var previousPumpCount = 0;
 
 const minWater = 0;
 const maxWater = 10;
+const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
 var dataJson = {
     "PumpCount": 3,
@@ -126,8 +127,6 @@ function setColor(pumpElement, status) {
 
 
 function setWaterLevelHeight(level) {
-
-    const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
     const containerHeight = container.offsetHeight;
     const waterLevelHeight = (level / maxWater) * containerHeight;
