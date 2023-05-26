@@ -10,7 +10,7 @@ let data = {
     Pump1Stat: 3,
     Pump2Stat: 2,
     Pump3Stat: 1,
-    Level: 9,
+    Level: 4.2,
     Flow: 31
 };
 
