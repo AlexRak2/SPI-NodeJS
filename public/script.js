@@ -73,6 +73,7 @@ function deletePipes()
 // Update all number values as visual representation
 function updateValues() {
 
+
     for (let i = 0; i < flowValues.length; i++) {
         flowValues[i].textContent = dataJson.Flow;
     }
@@ -120,19 +121,19 @@ function setColor(pumpElement, status) {
     }
 }
 
-// Set water height
 function setWaterLevelHeight(level) {
+    const containerHeight = container.offsetHeight;
     const maxHeight = 10; // Maximum water level height in FT
-    let waterLevelHeight = (level / maxHeight) * containerHeight;
+    const waterLevelHeight = (level / maxHeight) * containerHeight;
   
     // Clamp waterLevelHeight between 0 and containerHeight
-    waterLevelHeight = Math.max(0, Math.min(maxHeight, waterLevelHeight));
-    waterLevel.style.height = waterLevelHeight + "px";
-
-    const roundedValue =waterLevelHeight.toFixed(1);
+    const clampedHeight = Math.max(0, Math.min(containerHeight, waterLevelHeight));
+    waterLevel.style.height = clampedHeight + "px";
+  
+    const roundedValue = level.toFixed(1);
     waterLevelValue.textContent = roundedValue;
-}
-
+  }
+  
 // Water animation to simulate fake waves
 function waterLevelAnimation() {
     const minHeight = 0.5; // Minimum water level height in FT
