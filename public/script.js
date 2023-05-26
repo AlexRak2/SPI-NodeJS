@@ -22,7 +22,7 @@ var dataJson = {
     "Pump1Stat": 3,
     "Pump2Stat": 2,
     "Pump3Stat": 1,
-    "Level": 4.2,
+    "Level": 10,
     "Flow": 31
 };
 
@@ -125,13 +125,13 @@ function setColor(pumpElement, status) {
     }
 }
 
-
+setWaterLevelHeight(dataJson.Level);
 function setWaterLevelHeight(level) {
 
     const containerHeight = container.offsetHeight;
     const waterLevelHeight = (level / maxWater) * containerHeight;
   
-    const clampedHeight =  Math.max(0, Math.min(containerHeight, waterLevelHeight));
+    const clampedHeight =  Math.max(0, Math.min(containerHeight, waterLevelHeight) - 40);
     waterLevel.style.height = clampedHeight + "px";
 
     const waterLevelValue = clamp(level, minWater, maxWater);
