@@ -1,13 +1,12 @@
-// all elements needed
+// All elements needed
 const baseURL = 'https://spi-nodejs.onrender.com/';
 
-var container = document.getElementById("simulation-container");
-var waterLevel = document.getElementById("water-level");
-var pipeElements = document.getElementsByClassName("pump");
-var waterLevelValue = document.getElementById('water-level-number');
-var flowValues = document.getElementsByClassName('flow-number');
+const container = document.getElementById("simulation-container");
+const waterLevel = document.getElementById("water-level");
+const pipeElements = document.getElementsByClassName("pump");
+const waterLevelValue = document.getElementById('water-level-number');
+const flowValues = document.getElementsByClassName('flow-number');
 
-// temporary sample JSON 
 var dataJson = {
     "PumpCount": 3,
     "Pump1Stat": 3,
@@ -17,43 +16,58 @@ var dataJson = {
     "Flow": 31
 };
 
-// Extract the pump count and level from the JSON
-var pumpCount = dataJson.PumpCount;
-var level = dataJson.Level;
 
-// Set the initial water level height based on the level
-setWaterLevelHeight();
-WaterLevelAnimation();
 
 createPipe();
 updateValues();
-
-//create each pipe dynamically
-function createPipe()
-{
-    var pumpContainer = document.querySelector(".pump-container");
-    var pipeContainer = document.querySelector(".pipe-container");
-    var pipeTitleContainer = document.querySelector(".bottom-container");
+waterLevelAnimation();
 
 
-    for (let i = 0; i < pumpCount; i++) {
+// Create each pipe dynamically
+function createPipe() {
+    const pumpContainer = document.querySelector(".pump-container");
+    const pipeContainer = document.querySelector(".pipe-container");
+    const pipeTitleContainer = document.querySelector(".bottom-container");
 
-      var pumpElement = document.createElement("div");
-      pumpElement.classList.add("pump");
-      pumpContainer.appendChild(pumpElement);
+    for (let i = 0; i < dataJson.PumpCount; i++) {
+        const pumpElement = document.createElement("div");
+        pumpElement.classList.add("pump");
+        pumpContainer.appendChild(pumpElement);
 
-      var pipeElemet = document.createElement("div");
-      pipeElemet.classList.add("pipe");
-      pipeContainer.appendChild(pipeElemet);
+        const pipeElemet = document.createElement("div");
+        pipeElemet.classList.add("pipe");
+        pipeContainer.appendChild(pipeElemet);
 
-      var pumpTitle = document.createElement("div");
-      pumpTitle.classList.add("pipe-title");
-      pumpTitle.textContent = 'Pump ' + (i + 1);
-      pipeTitleContainer.appendChild(pumpTitle);
+        const pumpTitle = document.createElement("div");
+        pumpTitle.classList.add("pipe-title");
+        pumpTitle.textContent = 'Pump ' + (i + 1);
+        pipeTitleContainer.appendChild(pumpTitle);
     }
 }
 
-// set pipe color based on status
+// Update all number values as visual representation
+var previousWaterLevel = 0;
+function updateValues() {
+
+    const roundedValue = dataJson.Level.toFixed(1);
+    waterLevelValue.textContent = roundedValue;
+
+    for (let i = 0; i < flowValues.length; i++) {
+        flowValues[i].textContent = dataJson.Flow;
+    }
+
+    setColor(pipeElements[0], dataJson.Pump1Stat);
+    setColor(pipeElements[1], dataJson.Pump2Stat);
+    setColor(pipeElements[2], dataJson.Pump3Stat);
+
+    if(dataJson.Level != previousWaterLevel)
+    {
+        setWaterLevelHeight(dataJson.Level);        
+        previousWaterLevel = dataJson.Level;
+    }
+}
+
+// Set pipe color based on status
 function setColor(pumpElement, status) {
     switch (status) {
         case 1:
@@ -68,62 +82,44 @@ function setColor(pumpElement, status) {
     }
 }
 
-// set water height
+// Set water height
 function setWaterLevelHeight(level) {
-    var maxHeight = 10; // Maximum water level height in FT
-    var containerHeight = container.offsetHeight;
-    var waterLevelHeight = (dataJson.Level / maxHeight) * containerHeight;
+    const maxHeight = 10; // Maximum water level height in FT
+    const containerHeight = container.offsetHeight;
+    const waterLevelHeight = (level / maxHeight) * containerHeight;
     waterLevel.style.height = waterLevelHeight + "px";
 }
 
-// water animation to simulate fake waves
-function WaterLevelAnimation() {
-    var minHeight = 0.5; // Minimum water level height in FT
-    var maxHeight = 10; // Maximum water level height in FT
-    var levelRange = 0.2; // Range around the level value
-    var interval = 1000; 
+// Water animation to simulate fake waves
+function waterLevelAnimation() {
+    const minHeight = 0.5; // Minimum water level height in FT
+    const maxHeight = 10; // Maximum water level height in FT
+    const levelRange = 0.5; // Range around the level value
+    const interval = 1000; // Animation interval in milliseconds
 
-    setInterval(function() {
-        var randomLevel = dataJson.Level + (Math.random() * levelRange * 2 - levelRange);
-        randomLevel = Math.max(minHeight, Math.min(maxHeight, randomLevel)); // Clamp the value within the height range
-        setWaterLevelHeight(randomLevel);
+    setInterval(() => {
+        const randomLevel = dataJson.Level + (Math.random() * levelRange * 2 - levelRange);
+        const clampedLevel = Math.max(minHeight, Math.min(maxHeight, randomLevel)); // Clamp the value within the height range
+        setWaterLevelHeight(clampedLevel);
     }, interval);
 }
 
-//update all number values as visual representation
-function updateValues()
-{
 
-    for(let i = 0; i < flowValues.length; i++)
-    {
-        flowValues[i].textContent = dataJson.Flow;
-    }
-
-    // Set the color of each pipe based on the status
-    setColor(pipeElements[0], dataJson.Pump1Stat);
-    setColor(pipeElements[1], dataJson.Pump2Stat);
-    setColor(pipeElements[2], dataJson.Pump3Stat);
-}
-
-// Function to fetch data and update UI
 async function getInfo() {
-    try {
-      const res = await fetch(baseURL + 'getData', {
+    const res = await fetch(baseURL + 'getData', {
         method: 'GET'
-      });
-  
-      if (res.ok) {
+    });
+
+    if (res.ok) {
+
         const resJSON = await res.json(); // Extract JSON content from the response
         dataJson = resJSON;
+
         updateValues();
-      } else {
+    } else {
         console.log('Failed to fetch data');
-      }
-    } catch (error) {
-      console.log('An error occurred while fetching data:', error);
     }
-  }
-  
-  // Refresh data every second
-  setInterval(getInfo, 1000);
+}
+
+setInterval(getInfo, 3000);
 
