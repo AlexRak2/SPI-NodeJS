@@ -22,7 +22,7 @@ var dataJson = {
     "Pump1Stat": 3,
     "Pump2Stat": 2,
     "Pump3Stat": 1,
-    "Level": 5,
+    "Level": 10,
     "Flow": 31
 };
 
@@ -145,9 +145,7 @@ function waterLevelAnimation() {
 
     setInterval(() => {
         const randomLevel = dataJson.Level + (Math.random() * levelRange * 2 - levelRange);
-        const clampedLevel = Math.max(minWater, Math.min(maxWater  - 0.65, randomLevel)); // Clamp the value within the height range
-        console.log(clampedLevel);
-        setWaterLevelHeight(clampedLevel);
+        setWaterLevelHeight(randomLevel);
     }, interval);
 }
 
@@ -168,5 +166,5 @@ async function getInfo() {
     }
 }
 
-setInterval(getInfo, 3000);
+// setInterval(getInfo, 3000);
 
