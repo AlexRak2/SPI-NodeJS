@@ -166,5 +166,5 @@ async function getInfo() {
     }
 }
 
-// setInterval(getInfo, 3000);
+setInterval(getInfo, 3000);
 
