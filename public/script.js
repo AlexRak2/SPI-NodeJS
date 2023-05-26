@@ -73,9 +73,6 @@ function deletePipes()
 // Update all number values as visual representation
 function updateValues() {
 
-    const roundedValue = dataJson.Level.toFixed(1);
-    waterLevelValue.textContent = roundedValue;
-
     for (let i = 0; i < flowValues.length; i++) {
         flowValues[i].textContent = dataJson.Flow;
     }
@@ -126,13 +123,14 @@ function setColor(pumpElement, status) {
 // Set water height
 function setWaterLevelHeight(level) {
     const maxHeight = 10; // Maximum water level height in FT
-    const containerHeight = container.offsetHeight;
     let waterLevelHeight = (level / maxHeight) * containerHeight;
   
     // Clamp waterLevelHeight between 0 and containerHeight
-    waterLevelHeight = Math.max(0, Math.min(containerHeight, waterLevelHeight));
-  
+    waterLevelHeight = Math.max(0, Math.min(maxHeight, waterLevelHeight));
     waterLevel.style.height = waterLevelHeight + "px";
+
+    const roundedValue =waterLevelHeight.toFixed(1);
+    waterLevelValue.textContent = roundedValue;
 }
 
 // Water animation to simulate fake waves
@@ -144,7 +142,7 @@ function waterLevelAnimation() {
 
     setInterval(() => {
         const randomLevel = dataJson.Level + (Math.random() * levelRange * 2 - levelRange);
-        const clampedLevel = Math.max(minHeight, Math.min(maxHeight, randomLevel)); // Clamp the value within the height range
+        const clampedLevel = Math.max(minHeight, Math.min(maxHeight  - 0.65, randomLevel)); // Clamp the value within the height range
         setWaterLevelHeight(clampedLevel);
     }, interval);
 }
