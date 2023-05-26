@@ -124,9 +124,10 @@ function setColor(pumpElement, status) {
     }
 }
 
-const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
 function setWaterLevelHeight(level) {
+
+    const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
     const containerHeight = container.offsetHeight;
     const waterLevelHeight = (level / maxWater) * containerHeight;
