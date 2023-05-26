@@ -82,9 +82,24 @@ function updateValues() {
 
     createPipe();
 
-    setColor(pipeElements[0], dataJson.Pump1Stat);
-    setColor(pipeElements[1], dataJson.Pump2Stat);
-    setColor(pipeElements[2], dataJson.Pump3Stat);
+    // probably better if pump stat was an array so it can be more dynamic but the webstie itself can only contain 3 pipes
+    for(var i = 0; i < PumpCount; i++)
+    {
+        setColor(pipeElements[0], dataJson.Pump1Stat);
+        switch(i)
+        {
+            case 1:
+                setColor(pipeElements[1], dataJson.Pump1Stat);
+                break;
+            case 2:
+                setColor(pipeElements[2], dataJson.Pump2Stat);
+                break;
+            case 3:
+                setColor(pipeElements[3], dataJson.Pump3Stat);
+                break;
+        }
+    }
+
 
     if(dataJson.Level != previousWaterLevel)
     {
