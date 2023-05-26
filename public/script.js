@@ -14,7 +14,7 @@ var sampleJson = {
     "Pump2Stat": 2,
     "Pump3Stat": 1,
     "Level": 4.2,
-    "Flow": 31
+    "Flow": 21
 };
 
 // Extract the pump count and level from the JSON
@@ -26,11 +26,6 @@ setWaterLevelHeight(level);
 WaterLevelAnimation(level);
 
 createPipe();
-
-// Set the color of each pipe based on the status
-setColor(pipeElements[0], sampleJson.Pump1Stat);
-setColor(pipeElements[1], sampleJson.Pump2Stat);
-setColor(pipeElements[2], sampleJson.Pump3Stat);
 
 
 //create each pipe dynamically
@@ -86,8 +81,8 @@ function setWaterLevelHeight(level) {
 function WaterLevelAnimation() {
     var minHeight = 0.5; // Minimum water level height in FT
     var maxHeight = 10; // Maximum water level height in FT
-    var levelRange = 0.5; // Range around the level value
-    var interval = 1000; // Animation interval in milliseconds
+    var levelRange = 0.2; // Range around the level value
+    var interval = 1000; 
 
     setInterval(function() {
         var randomLevel = level + (Math.random() * levelRange * 2 - levelRange);
@@ -99,13 +94,18 @@ function WaterLevelAnimation() {
 //update all number values as visual representation
 function updateValues()
 {
-    const roundedValue = dataJson.Levelevel.toFixed(1);
+    const roundedValue = dataJson.Level.toFixed(1);
     waterLevelValue.textContent = roundedValue;
 
     for(let i = 0; i < flowValues.length; i++)
     {
         flowValues[i].textContent = sampleJson.Flow;
     }
+
+    // Set the color of each pipe based on the status
+    setColor(pipeElements[0], sampleJson.Pump1Stat);
+    setColor(pipeElements[1], sampleJson.Pump2Stat);
+    setColor(pipeElements[2], sampleJson.Pump3Stat);
 }
 
 // Function to fetch data and update UI
