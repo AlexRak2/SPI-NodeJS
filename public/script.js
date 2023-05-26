@@ -130,7 +130,7 @@ function setWaterLevelHeight(level) {
     const containerHeight = container.offsetHeight;
     const waterLevelHeight = (level / maxWater) * containerHeight;
   
-    const clampedHeight =  Math.max(0, Math.min(containerHeight, waterLevelHeight) - level < 10 ? 0 : 40);
+    const clampedHeight =  Math.max(0, Math.min(containerHeight, waterLevelHeight) - (level < 10 ? 0 : 40));
     waterLevel.style.height = clampedHeight + "px";
 
     const levelValue = clamp(level, minWater, maxWater);
