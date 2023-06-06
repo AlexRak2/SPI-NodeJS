@@ -43,20 +43,7 @@ client.on('message', (topic, message) => {
     // Parse the received JSON message
     const receivedData = JSON.parse(message.toString());
     data = receivedData;
-    // Additional logic to handle received message
-    // You can access the properties of the received data as follows:
-    console.log('Pump Count:', receivedData.PumpCount);
-    console.log('Pump 1 Status:', receivedData.Pump1Stat);
-    console.log('Pump 2 Status:', receivedData.Pump2Stat);
-    console.log('Pump 3 Status:', receivedData.Pump3Stat);
-    console.log('Level:', receivedData.Level);
-    console.log('Flow:', receivedData.Flow);
-});
-
-app.post('/updateData', (req, res) => {
-    data = req.body; // Update the data with the request body
-    console.log(data.Level + " data");
-    res.status(200).json({ message: 'Data updated successfully' });
+    console.log(data);
 });
 
 app.get('/getData', (req, res) => {
