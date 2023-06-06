@@ -159,6 +159,7 @@ async function getInfo() {
 
         const resJSON = await res.json(); // Extract JSON content from the response
         dataJson = resJSON;
+        console.log(dataJson);
 
         updateValues();
     } else {
